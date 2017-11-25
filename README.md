@@ -90,11 +90,10 @@ import {square, root} from 'file1.js' // to import multiple method
 
 Tip: Move items that you think has its own instances to its own file.
 
-Checkder `todo-aopp/hearder.js`
+Check file `todo-aopp/hearder.js`
 
-Note:
 
-Imports from libraries & packages
+### Imports from libraries & packages
 
 ```js
 import React, { Component } from 'react';
@@ -105,3 +104,17 @@ Imports local file.
 ```js
 import Header from './header';
 ```
+
+
+
+`this.setState` is asynchronous
+
+```js
+    if (e.keyCode == 13) {
+        this.setState({
+            value: e.target.value
+        })
+        console.log(this.state.value)
+    }
+```
+
