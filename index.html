@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>React Based todo application</title>
+        <style>
+            body {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <input id="input" placeholder="Add your task here" onkeypress="onKeyPress(event)">
+            <ul id="tasks-list">
+                <li>One</li>
+                <li>Two</li>
+                <li><strike>Three</strike></li>
+            </ul>
+        </div>
+        <script>
+            var TODOLIST = [
+            {
+                title: 'Task num 1',
+                id: 'task-1',
+                completed: false
+            },
+            {
+                title: 'Task num 2',
+                id: 'task-2',
+                completed: true
+            }]
+
+            function onKeyPress(e) {
+                console.log(e);
+                if (e.keyCode == 13) {
+                    TODOLIST.push({
+                        title: e.target.value,
+                        id: Date.now(),
+                        completed: false
+                    })
+                    e.target.value = ""
+                    refresh();
+                }
+            }
+
+            refresh();
+
+            function refresh() {
+                var taskList = document.getElementById('tasks-list')
+
+                taskList.innerHTML = "";
+
+                TODOLIST.forEach(function(task){
+                    var div = document.createElement('li');
+                    
+                    if (task.completed){
+                        div.innerHTML = '<strike>' + task.title + '</strike>';
+                    } else {
+                        div.innerHTML = task.title;
+                    }
+                    div.dataset.id = task.id;
+
+                    div.addEventListener('click', function(e) {
+                        var id = e.currentTarget.dataset.id;
+                        console.log(id);
+                        var target = e.currentTarget
+
+                        TODOLIST.find(function(task){
+                            return task.id === id;
+                        })
+
+                        task.completed = !(task.completed);
+                        refresh();
+                    })
+
+                    taskList.appendChild(div);
+                })
+            }
+        </script>
+    </body>
+</html>
