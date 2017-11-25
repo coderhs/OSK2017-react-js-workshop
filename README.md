@@ -118,3 +118,52 @@ import Header from './header';
     }
 ```
 
+
+### To access a method in the parent from the child.
+
+If you require the state of a parent to be changed when an event happens in the child. Then
+we need to pass in the method reference form the parent to the child as a prop.
+
+```js
+    // parent file
+
+    addTask(task) {
+        let current = this.state.TODOLIST;
+        current.push({
+        id: Date.now(),
+        title: task,
+        completed: false
+        });
+        this.setState({TODOLIST: current})
+    }
+
+    render() {
+        return (
+        <div className="App">
+            <Header />
+            <Input addTask = { this.addTask.bind(this) }/>
+        </div>
+        );
+    }
+
+    // child file
+
+    onKeyDown(e) {
+        if (e.keyCode === 13) {
+            this.setState({
+                value: e.target.value
+            })
+            // we are passing the new value to the add Task props
+            // which is calling the method in the parent.
+            this.props.addTask(e.target.value);
+        }
+    }
+
+    render () {
+        return (
+            <input placeholder = "Create new task!"
+            onKeyDown = {this.onKeyDown.bind(this)} />
+        )
+    }
+
+```
