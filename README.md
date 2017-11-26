@@ -44,7 +44,7 @@ export default function square (num) {
 
 //file 2
 
-import square from 'file1.js
+import square from 'file1.js'
 ```
 
 export multiple items
